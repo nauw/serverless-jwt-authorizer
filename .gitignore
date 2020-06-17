@@ -10,3 +10,5 @@ secrets.json
 # lock files
 yarn.lock
 package-lock.json
+
+secrets.json

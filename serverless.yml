@@ -1,4 +1,4 @@
-org: tmaximini
+org: jetlab
 
 custom:
   secrets: ${file(secrets.json)}
@@ -8,7 +8,9 @@ service: serverless-jwt-authorizer
 provider:
   name: aws
   runtime: nodejs12.x
-  region: eu-central-1
+  region: eu-west-1
+  deploymentBucket: jetlab.deployment
+  deployementPrefix: serverless-jwt-authorizer
   environment:
     JWT_SECRET: ${self:custom.secrets.JWT_SECRET}
     AWS_ID: ${self:custom.secrets.AWS_ID}
@@ -17,7 +19,7 @@ provider:
       Action:
         - "dynamodb:GetItem"
         - "dynamodb:PutItem"
-      Resource: "arn:aws:dynamodb:eu-central-1:${self:custom.secrets.AWS_ID}:table/${self:custom.tableName}"
+      Resource: "arn:aws:dynamodb:eu-west-1:${self:custom.secrets.AWS_ID}:table/${self:custom.tableName}"
 functions:
   verify-token:
     handler: functions/authorize.handler
